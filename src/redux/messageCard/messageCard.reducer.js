@@ -1,4 +1,4 @@
-import { GOOD_AFTERNOON, GOOD_EVENING, GOOD_MORNING } from "./messageCard.actionTypes";
+import { GOOD_EVENING, GOOD_MORNING } from "./messageCard.actionTypes";
 
 import * as messageActions from './messageCard.actionTypes';
 //messageActions.GOOD_AFTERNOON like this we can call exprots from messageCard.actionTypes

@@ -1,14 +1,16 @@
 import React, { useState } from "react";
 import ContactList from "./ContactList";
 import ContactCard from "./ContactCard";
+import { useSelector } from "react-redux";
+import { contactsListFeatureKey } from "../../redux/ContactApp/contactApp.reducer";
 
 let ContactApp = () => {
 
-    let [selectedUser, setSelectedUser] = useState({});
+    let userInfo = useSelector((state) => {
+        return state[contactsListFeatureKey]
+    });
 
-    let receiveContact = (user) => {
-        setSelectedUser(user);
-    }
+    let {selectedUser} = userInfo;
 
     return (
         <React.Fragment>
@@ -23,10 +25,10 @@ let ContactApp = () => {
                     {
                         Object.keys(selectedUser).length > 0 ?
                             <div className="col">
-                                <ContactList sendContact={receiveContact} />
+                                <ContactList />
                             </div> : 
                             <div className="col-md-9">
-                                <ContactList sendContact={receiveContact} />
+                                <ContactList />
                             </div>
                     }
                     <div className="col-md-3">

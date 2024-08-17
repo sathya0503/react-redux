@@ -1,32 +1,6 @@
-import logo from './logo.svg';
-import React, { useState } from 'react';
+import React from 'react';
 import './App.css';
-import { BrowserRouter as Router, Routes, Route } from "react-router-dom"
-
 import { Provider } from "react-redux";
-
-
-import CounterClass from './components/CounterClass';
-import Counter from './components/Counter';
-import MessageCard from './components/MessageCard';
-import Register from './components/Register';
-import AuthUser from './components/AuthUser';
-import HobbySelector from './components/HobbySelector';
-import HobbySelectorRadio from './components/HobbySelectorRadio';
-import ParentComponent from './components/Basics/ParentComponent';
-import ParentCard from './components/intermediate/ParentCard';
-import ComponentA from './components/PropsDrillingContextApi/ComponentA';
-import DigitalWatch from './components/lifecycle/DigitalWatch';
-import ComponentOne from './components/ContextAPI/ComponentOne';
-import UserList from './components/http-axio/UserList';
-import ContactApp from './components/ContactApp/ContactApp';
-import GithubSearchApp from './components/GithubSearchApp/GithubSearchApp';
-import Navbar from './components/Routing/layout/Navbar';
-import Home from './components/Routing/layout/Home';
-import Employees from './components/Routing/employees/Employees';
-import EmployeeDetails from './components/Routing/employees/EmployeeDetails';
-import Updates from './components/Routing/Stories/Updates';
-import About from './components/Routing/layout/About';
 import Navbars from './components/Routing/layout/Navbar';
 import { Store } from './redux/Store';
 

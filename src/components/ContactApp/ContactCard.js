@@ -1,11 +1,19 @@
 import React from "react";
+import { useSelector } from "react-redux";
+import { contactsListFeatureKey } from "../../redux/ContactApp/contactApp.reducer";
 
-let ContactCard = (props) => {
+let ContactCard = () => {
+
+    let userInfo = useSelector((state) => {
+        return state[contactsListFeatureKey]
+    });
+
+    let {selectedUser} = userInfo;
 
     return (
         <React.Fragment>
             {
-                Object.keys(props.selectedUser).length > 0 ?
+                Object.keys(selectedUser).length > 0 ?
                     <React.Fragment>
                         <div className="card">
                             <div className="card-header bg-primary text-white">
@@ -14,22 +22,22 @@ let ContactCard = (props) => {
                                 </div>
                             </div>
                             <div className="card-body text-center">
-                                <img src={props.selectedUser.picture.large} alt="" className="img-thumbnail rounded-circle w-50 contact-img"/>
+                                <img src={selectedUser.picture.large} alt="" className="img-thumbnail rounded-circle w-50 contact-img"/>
                                 <ul className="list-group mt-3">
                                     <li className="list-group-item list-group-item-secondary">
-                                        <b>NAME :</b> {props.selectedUser.name.first} {props.selectedUser.name.last}
+                                        <b>NAME :</b> {selectedUser.name.first} {selectedUser.name.last}
                                     </li>
                                     <li className="list-group-item list-group-item-primary">
-                                        {props.selectedUser.email}
+                                        {selectedUser.email}
                                     </li>
                                     <li className="list-group-item list-group-item-primary">
-                                        AGE : {props.selectedUser.dob.age} Yrs
+                                        AGE : {selectedUser.dob.age} Yrs
                                     </li>
                                     <li className="list-group-item list-group-item-primary">
-                                        City : {props.selectedUser.location.city}
+                                        City : {selectedUser.location.city}
                                     </li>
                                     <li className="list-group-item list-group-item-primary">
-                                        State : {props.selectedUser.location.state}
+                                        State : {selectedUser.location.state}
                                     </li>
                                 </ul>
                             </div>

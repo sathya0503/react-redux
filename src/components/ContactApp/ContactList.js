@@ -1,24 +1,24 @@
-import React, { useEffect, useState } from "react";
-import Axios from "axios";
+import React, { useEffect } from "react";
+import { useDispatch, useSelector } from "react-redux";
+import { contactsListFeatureKey } from "../../redux/ContactApp/contactApp.reducer";
+import { fetchContactsAynsc, selectContact } from "../../redux/ContactApp/contactApp.actions";
 
 let ContactList = (props) => {
 
-    let [users, setUsers] = useState([]);
-    let [errorMessage, setErrorMessage] = useState('');
+    let dispatch = useDispatch();
 
-    //Get data from server, when component fully loaded
-    //Important point - In useEffect after anonymous function write empty array( '[]' ) to avoid calling useEffect continuously
-    //if we won't write empty array ( [] ) - useEffect will call contiuosly 
-    useEffect( () => {
-        Axios.get('https://gist.githubusercontent.com/thenaveensaggam/77fd2f17e30dd74e29dc39156420be1a/raw/9f872818c85abd63999200ebc963907f9197f812/customers.21-10-2020.json').then((response) =>{
-            setUsers(response.data);
-        }).catch((error) => {
-            setErrorMessage(error.message);
-        });
+    let userInfo = useSelector((state) => {
+        return state[contactsListFeatureKey]
+    });
+
+    let { loading, users, errorMessage } = userInfo;
+
+    useEffect(() => {
+        dispatch(fetchContactsAynsc());
     }, []);
 
     let clickContact = (user) => {
-        props.sendContact(user);
+        dispatch(selectContact(user))
     };
 
 

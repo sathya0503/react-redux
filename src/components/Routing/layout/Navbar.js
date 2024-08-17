@@ -1,13 +1,7 @@
 import React, { useState } from "react";
 import { Link } from "react-router-dom";
-import Dropdown from 'react-bootstrap/Dropdown';
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 import Home from "./Home";
-import Employees from "../employees/Employees";
-import EmployeeDetails from "../employees/EmployeeDetails";
-import Updates from "../Stories/Updates";
-import About from "./About";
-
 import Container from 'react-bootstrap/Container';
 import Nav from 'react-bootstrap/Nav';
 import Navbar from 'react-bootstrap/Navbar';
@@ -18,9 +12,6 @@ import AuthUser from "../../AuthUser";
 import HobbySelector from "../../HobbySelector";
 import HobbySelectorRadio from "../../HobbySelectorRadio";
 import CounterClass from "../../CounterClass";
-import ParentComponent from "../../Basics/ParentComponent";
-import ParentCard from "../../intermediate/ParentCard";
-import ComponentA from "../../PropsDrillingContextApi/ComponentA";
 import ComponentOne from "../../ContextAPI/ComponentOne";
 import UserList from "../../http-axio/UserList";
 import DigitalWatch from "../../lifecycle/DigitalWatch";
@@ -30,9 +21,6 @@ import ButtonExample from "../../useRef/ButtomExample";
 import AcceptTerms from "../../useRef/AcceptTerms";
 import MessageCards from "../../use-reducer/MessageCards";
 import PizzaHut from "../../Redux-Example/PizzaHut";
-
-import { Provider } from "react-redux";
-import { Store } from "../../../redux/Store";
 import MessageCard from "../../MessageCard";
 
 let Navbars = () => {
