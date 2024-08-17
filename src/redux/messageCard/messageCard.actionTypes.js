@@ -1,0 +1,3 @@
+export const GOOD_MORNING ='GOOD_MORNING';
+export const GOOD_AFTERNOON ='GOOD_AFTERNOON';
+export const GOOD_EVENING ='GOOD_EVENING';
