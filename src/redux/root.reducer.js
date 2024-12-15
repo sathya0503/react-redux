@@ -6,6 +6,7 @@ import { hobbySelectorFeatureKey, hobbySelectorReducer } from "./HobbySelector/h
 import { hobbySelectorRadioFeatureKey, hobbySelectorRadioReducer } from "./HobbySelectorRadio/hobbySelectorRadio.reducer";
 import { userListFeatureKey, userListreducer } from "./UserList/userlist.reducer";
 import { contactAppreducer, contactsListFeatureKey } from "./ContactApp/contactApp.reducer";
+import { githubAppFeatureKey, githubAppReducer } from "./GithubApp/githubApp.reducer";
 
 let rootReducer = combineReducers({
     pizza : pizzahutreducer,
@@ -14,7 +15,8 @@ let rootReducer = combineReducers({
     [hobbySelectorFeatureKey] : hobbySelectorReducer,
     [hobbySelectorRadioFeatureKey] : hobbySelectorRadioReducer,
     [userListFeatureKey] : userListreducer,
-    [contactsListFeatureKey] : contactAppreducer
+    [contactsListFeatureKey] : contactAppreducer,
+    [githubAppFeatureKey] : githubAppReducer
 });
 
 export {rootReducer};

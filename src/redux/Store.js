@@ -7,7 +7,7 @@ let Store = configureStore({
   reducer: rootReducer,
   devTools: process.env.NODE_ENV !== 'production',
   middleware: getDefaultMiddleware =>
-    getDefaultMiddleware(thunk)
+    getDefaultMiddleware({thunk, serializableCheck: false})
 });
 
 export { Store };

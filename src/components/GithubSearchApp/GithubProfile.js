@@ -2,7 +2,7 @@ import React from "react";
 import GithubProfileCard from "./GithubProfileCard";
 import GithubProfileDetails from "./GuthubProfileDetails";
 
-let GithubProfile = (props) => {
+let GithubProfile = () => {
 
     return (
         <React.Fragment>
@@ -15,10 +15,10 @@ let GithubProfile = (props) => {
             </div>
             <div className="row">
                 <div className="col-md-3">
-                    <GithubProfileCard githubProfile={props.githubProfile} />
+                    <GithubProfileCard />
                 </div>
                 <div className="col-md-9">
-                    <GithubProfileDetails githubProfile={props.githubProfile} />
+                    <GithubProfileDetails />
                 </div>
             </div>
             </div>

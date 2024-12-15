@@ -1,6 +1,14 @@
 import React from "react";
+import { useSelector } from "react-redux";
+import { githubAppFeatureKey } from "../../redux/GithubApp/githubApp.reducer";
 
-let GithubRepos = (props) => {
+let GithubRepos = () => {
+
+    let githubAppInfo = useSelector((state) => {
+        return state[githubAppFeatureKey]
+    });
+
+    let [githubRepos] = githubAppInfo.githubRepos;
 
     return (
         <React.Fragment>
@@ -19,7 +27,7 @@ let GithubRepos = (props) => {
                                 <div className="card-body">
                                     <ul className="list-group">
                                         {
-                                            props.githubRepos.map(repo => {
+                                            githubRepos.map(repo => {
                                                 return (
                                                     <React.Fragment>
                                                         <li className="list-group-item">

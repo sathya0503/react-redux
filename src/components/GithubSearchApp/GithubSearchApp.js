@@ -1,42 +1,29 @@
 import React, { useState } from "react";
-import { CLIENT_ID, CLIENT_SECRET } from "./GithubCredentails";
-import Axios from "axios";
 import GithubProfile from "./GithubProfile";
 import GithubRepos from "./GithubRepos";
+import { useDispatch, useSelector } from "react-redux";
+import { githubAppFeatureKey } from "../../redux/GithubApp/githubApp.reducer";
+import { fetchGithubProfileAynsc, fetchGithubReposAynsc, getUsername } from "../../redux/GithubApp/githubApp.actions";
 let GithubSearchApp = () => {
 
-    let [githubUser, setGithubuser] = useState('');
-    
-    let [githubProfile, setGithubProfile] = useState({});
+    let dispatch = useDispatch();
 
-    let [githubRepos, setGithubRepos] = useState([]);
+    let [githubUsername, setGithubuser] = useState('');
 
-    let [errorMessage, setErrorMessage] = useState('');
+    let githubAppInfo = useSelector((state) => {
+        return state[githubAppFeatureKey]
+    });
+
+
+    let { loading, githubProfile, githubRepos, errorMessage } = githubAppInfo;
+
     let submitSearch = (event) => {
         event.preventDefault();
-        searchGithubProfile(githubUser);
-        searchGithubRepos(githubUser);
+        dispatch(fetchGithubProfileAynsc(githubUsername))
+        dispatch(fetchGithubReposAynsc(githubUsername))
     };
 
-    let searchGithubProfile = (githubUser) => {
-        let dataURL = `https://api.github.com/users/${githubUser}?client_id=${CLIENT_ID}&client_secret=${CLIENT_SECRET}`;
-        Axios.get(dataURL).then((response) => {
-            setGithubProfile(response.data);
-        }).catch((error) => {
-            setErrorMessage(error);
-        });
-    };
-
-    let searchGithubRepos = (githubUser) => {
-        let dataURL = `https://api.github.com/users/${githubUser}/repos?client_id=${CLIENT_ID}&client_secret=${CLIENT_SECRET}`;
-        Axios.get(dataURL).then((response) => {
-            setGithubRepos(response.data);
-        }).catch((error) => {
-            setErrorMessage(error);
-        });
-    };
-
-    return(
+    return (
         <React.Fragment>
             {/* <pre>{JSON.stringify(githubUser)}</pre> */}
             <div className="container mt-3">
@@ -50,24 +37,75 @@ let GithubSearchApp = () => {
                     <div className="col">
                         <form className="form-inline" onSubmit={submitSearch}>
                             <div className="form-group">
-                              <input 
-                              value={githubUser}
-                              onChange={e => setGithubuser(e.target.value)}
-                              type="text" className="form-control" placeholder="Github Username"/>  
+                                <input
+                                    value={githubUsername}
+                                    onChange={e => setGithubuser(e.target.value)}
+                                    type="text" className="form-control" placeholder="Github Username" />
                             </div>
-                            <input type="submit" className="button1" value="Search"/>
+                            <input type="submit" className="button1" value="Search" />
                         </form>
                     </div>
                 </div>
+                {/* Loader */}
+                {
+                    loading ?
+                        <React.Fragment>
+                            <div className="container mt-5">
+                                <div className="row">
+                                    <div className="col" style={{ marginLeft: '45%' }}>
+                                        <div>
+                                            <div class="spinner">
+                                                <div></div>
+                                                <div></div>
+                                                <div></div>
+                                                <div></div>
+                                                <div></div>
+                                                <div></div>
+                                                <div></div>
+                                                <div></div>
+                                                <div></div>
+                                                <div></div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </React.Fragment> : null
+                }
+                {
+                    !loading && errorMessage.hasOwnProperty('message') ? <React.Fragment>
+                    <div className="container">
+                        <div className="row">
+                            <div className="col" style={{marginLeft:'40%'}}>
+                                <div className="card-no-data">
+                                    <div className="header1">
+                                        <div className="image1"><svg aria-hidden="true" stroke="currentColor" stroke-width="1.5" viewBox="0 0 24 24" fill="none">
+                                            <path d="M12 9v3.75m-9.303 3.376c-.866 1.5.217 3.374 1.948 3.374h14.71c1.73 0 2.813-1.874 1.948-3.374L13.949 3.378c-.866-1.5-3.032-1.5-3.898 0L2.697 16.126zM12 15.75h.007v.008H12v-.008z" stroke-linejoin="round" stroke-linecap="round"></path>
+                                        </svg></div>
+                                        <div className="content1">
+                                            <span className="title1">{errorMessage.status === '404' ? 'User Not Found' : 'Unknown Error'}</span>
+                                            <p class="message1">Unable to fetch user details..!! Please check github username</p>
+                                        </div>
+                                        <div class="actions1">
+                                            <button class="desactivate" type="button">Try again</button>
+                                            <button class="cancel" type="button">Cancel</button>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </React.Fragment> : null
+                }
                 {/* Github Profile */}
                 <div className="row">
                     <div className="col">
                         {/* <pre>{JSON.stringify(githubProfile)}</pre> */}
                         {
                             Object.keys(githubProfile).length > 0 ?
-                            <React.Fragment>
-                                <GithubProfile githubProfile={githubProfile}/>
-                            </React.Fragment> : null
+                                <React.Fragment>
+                                    <GithubProfile />
+                                </React.Fragment> : null
                         }
                     </div>
                 </div>
@@ -77,9 +115,9 @@ let GithubSearchApp = () => {
                         {/* <pre>{JSON.stringify(githubRepos)}</pre> */}
                         {
                             Object.keys(githubRepos).length > 0 ?
-                            <React.Fragment>
-                                <GithubRepos githubRepos={githubRepos}/>
-                            </React.Fragment> : null
+                                <React.Fragment>
+                                    <GithubRepos />
+                                </React.Fragment> : null
                         }
                     </div>
                 </div>
